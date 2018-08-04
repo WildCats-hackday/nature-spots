@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  type: 
+  period_started_at: 2018-08-04 20:00:39
+  period_ended_at: 2018-08-04 20:00:39
+
+two:
+  name: MyString
+  type: 
+  period_started_at: 2018-08-04 20:00:39
+  period_ended_at: 2018-08-04 20:00:39

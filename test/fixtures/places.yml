@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  photo: MyString
+  area: 1.5
+  plants: 1
+  whales: 1
+  birds: 1
+
+two:
+  name: MyString
+  photo: MyString
+  area: 1.5
+  plants: 1
+  whales: 1
+  birds: 1
