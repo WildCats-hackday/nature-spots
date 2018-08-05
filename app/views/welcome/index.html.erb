@@ -2,3 +2,47 @@
 <p>
   The time is now: <%= Time.now %>
 </p>
+
+<div class="container">
+
+<form>
+
+	<div class="form-group"> <!-- City-->
+		<label for="city_id" class="control-label">City</label>
+		<input type="text" class="form-control" id="city_id" name="city" placeholder="City..."> 
+	</div>									
+							
+	<div class="form-group"> <!-- State Button -->
+		<label for="activity_id" class="control-label">Activity</label>
+		<select class="form-control" id="activity_id">
+			<option value="1">Atividade 1</option>
+			<option value="2">Atividade 1</option>
+			<option value="3">Atividade 1</option>
+      <option value="4">Atividade 1</option>
+		</select>					
+	</div>
+	
+	<div class="form-group"> <!-- Submit Button -->
+		<button type="submit" id="button" class="btn btn-primary">Buy!</button>
+	</div>     
+	
+</form>		
+</div>
+
+
+<script type="text/javascript">
+$(document).on('click', '#button', function (e) {
+  e.preventDefault();
+  $.ajax({
+    url: "https://nature-spots.herokuapp.com/places.json",
+    type: 'GET',
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    },
+    success: function(res){
+      console.log(res);
+    }
+});
+})
+
+</script>
