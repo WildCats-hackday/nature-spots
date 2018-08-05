@@ -1,24 +1,58 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Lat:</strong>
-  <%= @event.lat %>
-</p>
-
-<p>
-  <strong>Lon:</strong>
-  <%= @event.lon %>
-</p>
-
-<p>
-  <strong>Weather:</strong>
-  <%= @event.weather %>
-</p>
-
-<p>
-  <strong>City:</strong>
-  <%= @event.city %>
-</p>
-
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+        var map;
+        function initMap() {
+            var myLatLng = {lat: -34.714862, lng: 20.110697};
+            var oldLatLng = {lat: -34.710803, lng: 20.114269}
+            var directionsService = new google.maps.DirectionsService();
+            var directionsDisplay = new google.maps.DirectionsRenderer();
+            var mapOptions = {
+                zoom:12,
+                center: myLatLng
+            }
+            var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+            directionsDisplay.setMap(map);
+            var start = myLatLng;
+            var end = oldLatLng;
+            var marker = new google.maps.Marker({
+                position: start,
+                icon: 'https://www.google.com.br/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwiQ8pzbodbcAhUHTZAKHa7wCMkQjRx6BAgBEAU&url=http%3A%2F%2Fwww.iconarchive.com%2Fshow%2Fflat-animal-icons-by-martin-berube%2Fbird-icon.html&psig=AOvVaw2a5IUFvSrr5EMkTROsTk49&ust=1533570269735801',
+                map: map
+                });
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: 'DRIVING'
+            };
+            directionsService.route(request, function(result, status) {
+                if (status == 'OK') {
+                directionsDisplay.setDirections(result);
+                }
+            });
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChEAL6LVMl42SRgY3mYpZ5jmOr1qv7ipA&callback=initMap"
+    async defer></script>
+  </body>
+</html>
