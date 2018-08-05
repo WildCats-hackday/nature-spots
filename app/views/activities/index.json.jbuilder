@@ -1,1 +1,2 @@
-json.array! @activities, partial: 'activities/activity', as: :activity
+json.array! @activities, :id, :name, :activity_type
+
