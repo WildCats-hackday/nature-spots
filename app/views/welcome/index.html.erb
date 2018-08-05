@@ -1,7 +1,94 @@
-<h2>Nature Spots</h2>
-<p>
-  The time is now: <%= Time.now %>
-</p>
+<div id="map"></div>
+    <script>
+        var map;
+        var current_markers = []
+      function initMap() {
+          // Create a div to hold the control.
+        var myLatLng = {lat: -34.714845, lng: 20.10465};
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 16,
+          center: new google.maps.LatLng(-34.718995,20.106230)
+          // mapTypeId: 'terrain'
+				});
+        var image = {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/1024px-User_icon_2.svg.png',
+            scaledSize: new google.maps.Size(40, 40)
+        }
+        // Loop through the results array and place a marker for each
+        // set of coordinates.
+        var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            title: 'Hi',
+            icon: image
+        });
+
+        map.data.setStyle({
+            // icon: '//example.com/path/to/image.png',
+            fillOpacity: 0.5,
+            fillColor: 'white',
+            strokeColor: 'grey',
+            strokeWeight: 1.5
+        });
+
+        markers = [
+            {"type":"Feature","properties":{"id": "1"},"geometry":{"type":"Point","coordinates":[-34.714862, 20.110697]}},
+            {"type":"Feature","properties":{"id": "2"},"geometry":{"type":"Point","coordinates":[-34.716892, 20.105208]}},
+            {"type":"Feature","properties":{"id": "3"},"geometry":{"type":"Point","coordinates":[-34.714733, 20.103895]}},
+            {"type":"Feature","properties":{"id": "4"},"geometry":{"type":"Point","coordinates":[-34.714366, 20.107151]}},
+            {"type":"Feature","properties":{"id": "5"},"geometry":{"type":"Point","coordinates":[-34.717712, 20.106653]}},
+            {"type":"Feature","properties":{"id": "6"},"geometry":{"type":"Point","coordinates":[-34.717129, 20.106232]}},
+            {"type":"Feature","properties":{"id": "7"},"geometry":{"type":"Point","coordinates":[-34.718813, 20.102660]}},
+            {"type":"Feature","properties":{"id": "8"},"geometry":{"type":"Point","coordinates":[-34.717755, 20.102371]}},
+            {"type":"Feature","properties":{"id": "9"},"geometry":{"type":"Point","coordinates":[-34.715488, 20.100848]}},
+            {"type":"Feature","properties":{"id": "10"},"geometry":{"type":"Point","coordinates":[-34.719223, 20.104656]}},
+            {"type":"Feature","properties":{"id": "11"},"geometry":{"type":"Point","coordinates":[-34.715488, 20.114480]}},
+            {"type":"Feature","properties":{"id": "12"},"geometry":{"type":"Point","coordinates":[-34.718813, 20.096015]}},
+            {"type":"Feature","properties":{"id": "13"},"geometry":{"type":"Point","coordinates":[-34.716179, 20.097853]}},
+            {"type":"Feature","properties":{"id": "14"},"geometry":{"type":"Point","coordinates":[-34.713242, 20.113560]}},
+            {"type":"Feature","properties":{"id": "15"},"geometry":{"type":"Point","coordinates":[-34.710803, 20.114269]}},
+            {"type":"Feature","properties":{"id": "16"},"geometry":{"type":"Point","coordinates":[-34.719590, 20.100769]}}
+        ];
+        for (var i = 0; i < markers.length; i++) {
+            var coords = markers[i].geometry.coordinates;
+            var latLng = new google.maps.LatLng(coords[0],coords[1]);
+            var marker = new google.maps.Marker({
+                position: latLng,
+                map: map
+            });
+            markers[i] = marker;
+        };
+        // Load GeoJSON.
+        var region = $.getJSON("regions/De Mond Nature Reserve.geojson"); //same as map.data.loadGeoJson();
+        region.then(function(data){
+            cachedGeoJson = data; //save the geojson in case we want to update its values
+            map.data.addGeoJson(cachedGeoJson,{idPropertyName:"id"});
+        });
+
+        // var markers_on_screen = function() {
+        // 	current_markers = []
+        // 	for(var i = markers.length, bounds = map.getBounds(); i--;) {
+        // 		if( bounds.contains(markers[i].getPosition()) ){
+                    
+        // 		}
+        // 	}
+        // }
+
+        // map.addListener('dragend', markers_on_screen);
+        // map.addListener('zoom_changed', markers_on_screen);
+        
+}
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChEAL6LVMl42SRgY3mYpZ5jmOr1qv7ipA&callback=initMap">
+    </script>
+    <div>
+        <button type="button" class="btn btn-primary">Sugestions</button>
+        <button type="button" class="btn btn-primary">Add</button>
+    </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 
 <div class="container">
   <form>
