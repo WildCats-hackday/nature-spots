@@ -1,33 +1,137 @@
-<p id="notice"><%= notice %></p>
+<!DOCTYPE html>
+<html>
+  <body>
+    <style>
+    /* Always set the map height explicitly to define the size of the div
+        * element that contains the map. */
+    #map {
+        height: 100%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    * {
+    box-sizing: border-box;
+    }
 
-<h1>Activities</h1>
+    /* Create two equal columns that floats next to each other */
+    .column {
+        float: left;
+        width: 70%;
+        padding: 10px;
+        height: 100%; /* Should be removed. Only for demonstration */
+    }
+    .column1 {
+        float: left;
+        width: 30%;
+        padding: 10px;
+        height: 100%; /* Should be removed. Only for demonstration */
+    }
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    </style>
+    <!-- div do map-->
+    <div class="column">
+    <div id="map"></div>
+    <script>
+        var map;
+        var current_markers = []
+      function initMap() {
+          // Create a div to hold the control.
+        var myLatLng = {lat: -34.714845, lng: 20.10465};
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 16,
+          center: new google.maps.LatLng(-34.718995,20.106230)
+          // mapTypeId: 'terrain'
+				});
+        var image = {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/1024px-User_icon_2.svg.png',
+            scaledSize: new google.maps.Size(40, 40)
+        }
+        // Loop through the results array and place a marker for each
+        // set of coordinates.
+        var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            title: 'Hi',
+            icon: image
+        });
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Activity Type</th>
-      <th>Period started at</th>
-      <th>Period ended at</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+        map.data.setStyle({
+            // icon: '//example.com/path/to/image.png',
+            fillOpacity: 0.5,
+            fillColor: 'white',
+            strokeColor: 'grey',
+            strokeWeight: 1.5
+        });
 
-  <tbody>
-    <% @activities.each do |activity| %>
-      <tr>
-        <td><%= activity.name %></td>
-        <td><%= activity.activity_type %></td>
-        <td><%= activity.period_started_at %></td>
-        <td><%= activity.period_ended_at %></td>
-        <td><%= link_to 'Show', activity %></td>
-        <td><%= link_to 'Edit', edit_activity_path(activity) %></td>
-        <td><%= link_to 'Destroy', activity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        markers = [
+            {"type":"Feature","properties":{"id": "1"},"geometry":{"type":"Point","coordinates":[-34.714862, 20.110697]}},
+            {"type":"Feature","properties":{"id": "2"},"geometry":{"type":"Point","coordinates":[-34.716892, 20.105208]}},
+            {"type":"Feature","properties":{"id": "3"},"geometry":{"type":"Point","coordinates":[-34.714733, 20.103895]}},
+            {"type":"Feature","properties":{"id": "4"},"geometry":{"type":"Point","coordinates":[-34.714366, 20.107151]}},
+            {"type":"Feature","properties":{"id": "5"},"geometry":{"type":"Point","coordinates":[-34.717712, 20.106653]}},
+            {"type":"Feature","properties":{"id": "6"},"geometry":{"type":"Point","coordinates":[-34.717129, 20.106232]}},
+            {"type":"Feature","properties":{"id": "7"},"geometry":{"type":"Point","coordinates":[-34.718813, 20.102660]}},
+            {"type":"Feature","properties":{"id": "8"},"geometry":{"type":"Point","coordinates":[-34.717755, 20.102371]}},
+            {"type":"Feature","properties":{"id": "9"},"geometry":{"type":"Point","coordinates":[-34.715488, 20.100848]}},
+            {"type":"Feature","properties":{"id": "10"},"geometry":{"type":"Point","coordinates":[-34.719223, 20.104656]}},
+            {"type":"Feature","properties":{"id": "11"},"geometry":{"type":"Point","coordinates":[-34.715488, 20.114480]}},
+            {"type":"Feature","properties":{"id": "12"},"geometry":{"type":"Point","coordinates":[-34.718813, 20.096015]}},
+            {"type":"Feature","properties":{"id": "13"},"geometry":{"type":"Point","coordinates":[-34.716179, 20.097853]}},
+            {"type":"Feature","properties":{"id": "14"},"geometry":{"type":"Point","coordinates":[-34.713242, 20.113560]}},
+            {"type":"Feature","properties":{"id": "15"},"geometry":{"type":"Point","coordinates":[-34.710803, 20.114269]}},
+            {"type":"Feature","properties":{"id": "16"},"geometry":{"type":"Point","coordinates":[-34.719590, 20.100769]}}
+        ];
+        for (var i = 0; i < markers.length; i++) {
+            var coords = markers[i].geometry.coordinates;
+            var latLng = new google.maps.LatLng(coords[0],coords[1]);
+            var marker = new google.maps.Marker({
+                position: latLng,
+                map: map
+            });
+            markers[i] = marker;
+        };    
+}
 
-<br>
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChEAL6LVMl42SRgY3mYpZ5jmOr1qv7ipA&callback=initMap">
+    </script>
+    </div>
+    <!-- div do botao -->
+    <div class="column1">
+      <h3>Activities</h1>
+        <table class="table table-bordered">
+          <tbody>
+            <% @activities.each do |activity| %>
+              <tr>
+                <td><%= activity.name %></td>
+                <td><%= activity.activity_type %></td>
+              <% end %>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-primary btn-block">Add</button>
+    </div>
 
-<%= link_to 'New Activity', new_activity_path %>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(document).on('click', '#button', function (e) {
+      e.preventDefault();
+      $.ajax({
+        url: "https://nature-spots.herokuapp.com/places.json",
+        type: 'GET',
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        },
+        success: function(res){
+          console.log(res);
+        }
+    });
+    })
+
+    </script>
+  </body>
+</html>
