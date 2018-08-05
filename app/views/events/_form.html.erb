@@ -22,13 +22,17 @@
   </div>
 
   <div class="field">
-    <%= form.label :weather %>
-    <%= form.text_field :weather %>
+    <%= form.label :place_id %><br />
+          <%= form.collection_select(:place_id,
+            Place.order('name'),:id, :name, {:prompt => true}) %>
   </div>
 
   <div class="field">
-    <%= form.label :city %>
-    <%= form.text_field :city %>
+    <%= form.label :activity_id %><br />
+          <%= form.collection_select(:activity_id,
+            Activity.order('name'),:id, :name, {:prompt => true}) %>
+  </div>
+
   </div>
 
   <div class="actions">
