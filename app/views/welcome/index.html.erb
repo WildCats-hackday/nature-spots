@@ -1,4 +1,20 @@
-<div id="map"></div>
+<!DOCTYPE html>
+<html>
+  <body>
+    <style>
+    /* Always set the map height explicitly to define the size of the div
+        * element that contains the map. */
+    #map {
+        height: 97%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    </style>
+    <div id="map"></div>
     <script>
         var map;
         var current_markers = []
@@ -57,26 +73,7 @@
                 map: map
             });
             markers[i] = marker;
-        };
-        // Load GeoJSON.
-        var region = $.getJSON("regions/De Mond Nature Reserve.geojson"); //same as map.data.loadGeoJson();
-        region.then(function(data){
-            cachedGeoJson = data; //save the geojson in case we want to update its values
-            map.data.addGeoJson(cachedGeoJson,{idPropertyName:"id"});
-        });
-
-        // var markers_on_screen = function() {
-        // 	current_markers = []
-        // 	for(var i = markers.length, bounds = map.getBounds(); i--;) {
-        // 		if( bounds.contains(markers[i].getPosition()) ){
-                    
-        // 		}
-        // 	}
-        // }
-
-        // map.addListener('dragend', markers_on_screen);
-        // map.addListener('zoom_changed', markers_on_screen);
-        
+        };    
 }
 
     </script>
@@ -89,29 +86,5 @@
     </div>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-
-<div class="container">
-  <form>
-    <div class="form-group"> <!-- Submit Button -->
-      <button type="submit" id="button" class="btn btn-primary">Buy!</button>
-    </div>     
-  </form>		
-</div>
-
-
-<script type="text/javascript">
-$(document).on('click', '#button', function (e) {
-  e.preventDefault();
-  $.ajax({
-    url: "https://nature-spots.herokuapp.com/places.json",
-    type: 'GET',
-    headers: {
-      'Access-Control-Allow-Origin': '*'
-    },
-    success: function(res){
-      console.log(res);
-    }
-});
-})
-
-</script>
+  </body>
+</html>
