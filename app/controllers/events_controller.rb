@@ -10,6 +10,19 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
+    @client_ip = remote_ip()
+    @client_url = "http://api.ipstack.com/#{@client_ip}?access_key=5cbc95f28c6158f5ef3f73d249ede09a&format=1"
+    puts "========="
+    puts @client_url
+    response = Requests.request("GET", @client_url)
+    data = JSON.parse(response.body)
+    lat = data["latitude"]
+    lon = data["longitude"]
+    dados = {"lat" => data["latitude"], "lon" => data["longitude"]}
+    dados = dados.to_json
+    dados = JSON.parse(dados)
+    @client_data = dados
+    @client_data
   end
 
   # GET /events/new
