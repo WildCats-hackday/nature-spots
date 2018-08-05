@@ -6,7 +6,7 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Type</th>
+      <th>Activity Type</th>
       <th>Period started at</th>
       <th>Period ended at</th>
       <th colspan="3"></th>
@@ -17,7 +17,7 @@
     <% @activities.each do |activity| %>
       <tr>
         <td><%= activity.name %></td>
-        <td><%= activity.type %></td>
+        <td><%= activity.activity_type %></td>
         <td><%= activity.period_started_at %></td>
         <td><%= activity.period_ended_at %></td>
         <td><%= link_to 'Show', activity %></td>
